@@ -152,7 +152,7 @@
     @keyframes softFloat { 0% { transform: translateY(0); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
 
     .sky-buttons-container {
-      position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+      position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
       z-index: 90; text-align: center; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;
     }
     .launch-button, .bot-toggle-button {
@@ -218,17 +218,36 @@
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
     @media (max-width: 600px) {
-      .header h1 { font-size: 1.5em; }
-      .form-section { top: auto; bottom: 10px; transform: translate(-50%, 0); max-width: 95%; padding: 15px; }
-      .kratong-option img { width: 60px; height: 60px; }
-      .moon { width: 60px; height: 60px; }
-      .kratong-item img { width: 18vw; max-width: 70px; }
-      .sky-buttons-container { top: 15%; flex-direction: column; }
-      .launch-button, .bot-toggle-button { width: 80%; }
-      #language-switcher { top: 10px; right: 10px; font-size: 0.8em; }
-      #audio-control { top: 10px; right: 70px; }
-      #volume-slider { width: 60px; }
+      .header {
+        padding-top: 52px;
+        padding-bottom: 14px;
+      }
+      .header h1 { font-size: 1.35em; line-height: 1.3; }
+      .header p { font-size: 0.8em; }
       .header p:not(#kratong-count-display) { white-space: normal; }
+
+      #language-switcher { top: 10px; right: 10px; font-size: 0.8em; padding: 4px 8px; }
+      #audio-control { top: 10px; right: 75px; font-size: 1em; padding: 4px 8px; }
+      #volume-slider { width: 55px; margin-left: 6px; }
+
+      .sky-buttons-container {
+        top: 16px;
+        width: 92%;
+        flex-direction: row;
+        gap: 10px;
+      }
+      .launch-button, .bot-toggle-button {
+        width: auto;
+        flex: 1;
+        font-size: 0.9em;
+        padding: 9px 10px;
+        white-space: nowrap;
+      }
+
+      .form-section { top: 50%; bottom: auto; transform: translate(-50%, -50%); max-width: 92%; padding: 15px; }
+      .kratong-option img { width: 60px; height: 60px; }
+      .moon { width: 55px; height: 55px; top: 18%; right: 8%; }
+      .kratong-item img { width: 18vw; max-width: 70px; }
     }
   </style>
 </head>
@@ -258,18 +277,18 @@
   </p> 
 </div>
 
-<div id="skyButtonsContainer" class="sky-buttons-container">
-    <button id="toggleFormButton" class="launch-button">
-        <span class="lang-th">ลอยกระทงออนไลน์ 🕯️</span>
-        <span class="lang-en">Launch Your Krathong 🕯️</span>
-    </button>
-    <button id="toggleBotKratongsButton" class="bot-toggle-button active">
-        <span class="lang-th">แสดงกระทง Bot</span>
-        <span class="lang-en">Show Bot Krathongs</span>
-    </button>
-</div>
-
 <div class="main-container">
+  <div id="skyButtonsContainer" class="sky-buttons-container">
+      <button id="toggleFormButton" class="launch-button">
+          <span class="lang-th">ลอยกระทงออนไลน์ 🕯️</span>
+          <span class="lang-en">Launch Your Krathong 🕯️</span>
+      </button>
+      <button id="toggleBotKratongsButton" class="bot-toggle-button active">
+          <span class="lang-th">แสดงกระทง Bot</span>
+          <span class="lang-en">Show Bot Krathongs</span>
+      </button>
+  </div>
+
   <div class="background-scene">
     <div class="stars"></div>
     <canvas id="fireworks-canvas"></canvas>
@@ -340,7 +359,6 @@
 </div>
 
 <script>
-    // ********** วาง URL Web App จาก Google Apps Script ที่นี่ **********
     const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzMa4RO3uglPtnvlR_JJ-rFyOZjot6-59fAsDlaHhPzTCrgT0G3TpUrXUqlfvm7rUt3/exec';
 
     let botInterval; 
@@ -484,7 +502,6 @@
         });
     }
 
-    // โหลดข้อมูลกระทงและจำนวนผู้ลอยผ่าน fetch GET
     async function loadAndRenderKratongs() {
         try {
             const res = await fetch(GAS_WEB_APP_URL);
@@ -497,7 +514,6 @@
         }
     }
 
-    // บันทึกกระทงผ่าน fetch POST (ไม่ตั้ง header JSON เพื่อเลี่ยง CORS preflight)
     async function postKratong(formData) {
         const res = await fetch(GAS_WEB_APP_URL, {
             method: 'POST',
