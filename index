@@ -341,7 +341,7 @@
 
 <script>
     // ********** วาง URL Web App จาก Google Apps Script ที่นี่ **********
-    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzMa4RO3uglPtnvlR_JJ-rFyOZjot6-59fAsDlaHhPzTCrgT0G3TpUrXUqlfvm7rUt3/execc';
 
     let botInterval; 
     const BOT_INTERVAL_MS = 5 * 60 * 1000;
